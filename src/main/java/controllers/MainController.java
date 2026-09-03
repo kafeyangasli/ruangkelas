@@ -157,8 +157,6 @@ public class MainController extends Controller {
 
                     return;
                 }
-
-                selectedKelas = newKelas;
             });
         
         attendeeListView
@@ -431,7 +429,7 @@ public class MainController extends Controller {
                         file.toPath()
                 );
                 default -> throw new IllegalArgumentException("Unsupported import format.");
-            };
+            }
 
             Ruangkelas.showAlert(
                     Alert.AlertType.INFORMATION,
@@ -504,7 +502,7 @@ public class MainController extends Controller {
                         file.toPath()
                 );
                 default -> throw new IllegalArgumentException("Unsupported import format.");
-            };
+            }
 
             Ruangkelas.showAlert(
                     Alert.AlertType.INFORMATION,
@@ -937,6 +935,8 @@ public class MainController extends Controller {
         selectedAttendee = null;
         selectedAssessment = null;
         selectedSession = null;
+
+        selectedKelas = kelas;
 
         courseName.setText(
             kelas.getCourseInfo().getCourseName() + " - " + kelas.getKelasId()
