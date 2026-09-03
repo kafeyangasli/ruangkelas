@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/cupertino-light.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+
+    <!-- ==================== MENU BAR ==================== -->
+
+    <top>
+        <MenuBar fx:id="menuBar" prefWidth="690.0">
+
+            <menus>
+
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+
+                        <Menu mnemonicParsing="false" text="Kelas">
+                            <items>
+
+                                <MenuItem mnemonicParsing="false" onAction="#createKelas" text="Create a new Kelas" />
+
+                                <MenuItem fx:id="deleteKelasMenuBtn" disable="true" mnemonicParsing="false" onAction="#deleteKelas" text="Delete this Kelas" />
+
+                                <SeparatorMenuItem />
+
+                                <Menu fx:id="exportKelasMenuBtn" disable="true" mnemonicParsing="false" text="Export Kelas Data">
+
+                                    <items>
+                              <MenuItem fx:id="csv_exportkelasBtn" mnemonicParsing="false" onAction="#exportKelas" text="To CSV" />
+                              <MenuItem mnemonicParsing="false" onAction="#exportKelas" text="To XLSX" fx:id="xlsx_exportkelasBtn" />
+
+                                        <MenuItem fx:id="json_exportkelasBtn" mnemonicParsing="false" onAction="#exportKelas" text="To JSON" />
+
+                                    </items>
+
+                                </Menu>
+                        <MenuItem fx:id="exportReportBtn" mnemonicParsing="false" onAction="#exportReport" text="Export Kelas Report" />
+
+                            </items>
+                        </Menu>
+
+                        <Menu mnemonicParsing="false" text="Course">
+                            <items>
+
+                                <MenuItem mnemonicParsing="false" onAction="#manageCourseBtn" text="Manage Courses" />
+
+                            </items>
+                        </Menu>
+
+                        <Menu mnemonicParsing="false" text="Students">
+                            <items>
+
+                                      <Menu mnemonicParsing="false" text="Import">
+                                    <items>
+
+                                              <MenuItem fx:id="csv_importstudentsBtn" mnemonicParsing="false" onAction="#importStudents" text="From CSV" />
+
+                                              <MenuItem mnemonicParsing="false" onAction="#importStudents" text="From XLSX" fx:id="xlsx_importstudentsBtn" />
+
+                                              <MenuItem fx:id="json_importstudentsBtn" mnemonicParsing="false" onAction="#importStudents" text="From JSON" />
+
+                                          </items>
+                                </Menu>
+                        <Menu mnemonicParsing="false" text="Export">
+                           <items>
+                              <MenuItem fx:id="csv_exportstudentsBtn" mnemonicParsing="false" onAction="#exportStudents" text="To CSV" />
+                              <MenuItem mnemonicParsing="false" onAction="#exportStudents" text="To XLSX" fx:id="xlsx_exportstudentsBtn" />
+                              <MenuItem fx:id="json_exportstudentsBtn" mnemonicParsing="false" onAction="#exportStudents" text="To JSON" />
+                           </items>
+                        </Menu>
+
+                                <SeparatorMenuItem />
+
+                                <MenuItem mnemonicParsing="false" onAction="#manageStudentBtn" text="Manage Student Data" />
+
+                            </items>
+                        </Menu>
+                  <SeparatorMenuItem />
+                  <MenuItem mnemonicParsing="false" onAction="#closeAppBtn" text="Exit" />
+
+                    </items>
+                </Menu>
+
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+
+                        <MenuItem mnemonicParsing="false" onAction="#showUsageGuide" text="Usage Guide" />
+
+                        <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About ruangkelas" />
+
+                    </items>
+                </Menu>
+
+            </menus>
+
+        </MenuBar>
+    </top>
+
+
+    <!-- ==================== LEFT SIDEBAR ==================== -->
+
+    <left>
+        <VBox alignment="TOP_CENTER" fillWidth="false" prefWidth="250.0" spacing="12.0">
+
+            <padding>
+                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+            </padding>
+
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+
+                <image>
+                    <Image url="@../imgs/ruangkelas.png" />
+                </image>
+
+            </ImageView>
+
+            <ListView fx:id="kelasListView" VBox.vgrow="ALWAYS" />
+
+        </VBox>
+    </left>
+
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+
+    <center>
+        <StackPane>
+
+            <!-- Empty state -->
+            <BorderPane fx:id="limboPane" visible="false">
+
+                <center>
+                    <Label text="Select a class to start.">
+                        <font>
+                            <Font size="28.0" />
+                        </font>
+                    </Label>
+                </center>
+
+            </BorderPane>
+
+
+            <!-- Class details -->
+            <AnchorPane fx:id="kelasDetailsPane">
+
+                <VBox prefWidth="827.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+                    <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                    </padding>
+
+
+                    <!-- Class header -->
+
+                    <VBox spacing="2.0">
+
+                        <Label fx:id="courseName" text="Struktur Data - C1">
+
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+
+                        </Label>
+
+                        <Label fx:id="kelasSemester" text="2026 Ganjil">
+
+                            <font>
+                                <Font name="System Italic" size="12.0" />
+                            </font>
+
+                        </Label>
+
+                    </VBox>
+
+
+                    <Separator />
+
+
+                    <!-- ==================== ATTENDEES / SESSIONS ==================== -->
+
+                    <HBox spacing="16.0" VBox.vgrow="ALWAYS">
+
+
+                        <!-- Attendees -->
+
+                        <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+
+                            <Label text="Attendees">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                     <TextField fx:id="attendeeSearchField" promptText="Search by NIM or name" />
+
+                            <ListView fx:id="attendeeListView" VBox.vgrow="ALWAYS" />
+                     <HBox spacing="8.0">
+                        <children>
+                           <Button maxWidth="Infinity" onAction="#manageAttendeesBtn" text="Manage Attendees" HBox.hgrow="ALWAYS" />
+                           <Button fx:id="viewAttendeeBtn" disable="true" maxWidth="Infinity" onAction="#viewAttendee" text="View" HBox.hgrow="ALWAYS" />
+                        </children>
+                     </HBox>
+
+                        </VBox>
+   
+      
+                           <!-- Assessments -->
+   
+                           <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+   
+                               <HBox alignment="CENTER_LEFT" spacing="8.0">
+   
+                                   <Label text="Assessments" HBox.hgrow="ALWAYS">
+   
+                                       <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+   
+                                   </Label>
+   
+                               </HBox>
+   
+                                <ListView fx:id="assessmentListView" VBox.vgrow="ALWAYS" />
+   
+      
+                               <!-- Assessment buttons -->
+   
+                               <HBox spacing="8.0" VBox.vgrow="ALWAYS">
+   
+                                   <Button maxWidth="Infinity" onAction="#addAssessmentBtn" text="Add" HBox.hgrow="ALWAYS" />
+   
+                                   <Button fx:id="manageAssessmentBtn" disable="true" maxWidth="Infinity" onAction="#manageAssessmentBtn" text="Manage" HBox.hgrow="ALWAYS" />
+   
+                               </HBox>
+   
+                           </VBox>
+
+                    </HBox>
+
+
+                    <Separator />
+
+
+                    <!-- ==================== BOTTOM SECTION ==================== -->
+
+                    <HBox spacing="24.0" VBox.vgrow="NEVER">
+
+
+                        <!-- Sessions -->
+
+                        <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                     <HBox alignment="CENTER_LEFT" spacing="8.0">
+                        <children>
+                           <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                              <children>
+            
+                                        <Label text="Sessions">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                        </Label>
+                              </children>
+                           </HBox>
+      
+                                          <Button onAction="#createSessionBtn" text="Create" />
+                        </children>
+                     </HBox>
+
+                            <ListView fx:id="sessionListView" VBox.vgrow="ALWAYS" />
+                     <HBox spacing="8.0" VBox.vgrow="ALWAYS">
+                        <children>
+                           <Button fx:id="manageSessionBtn" disable="true" maxWidth="Infinity" onAction="#manageSessionBtn" text="Manage Session" HBox.hgrow="ALWAYS" />
+
+                                          <Button fx:id="startSessionBtn" disable="true" onAction="#startSessionBtn" text="▶" />
+
+                                          <Button fx:id="endSessionBtn" disable="true" onAction="#endSessionBtn" text="◾" />
+                        </children>
+                     </HBox>
+
+                        </VBox>
+
+
+                        <!-- Actions -->
+
+                        <VBox alignment="CENTER" minWidth="150.0" prefWidth="150.0" spacing="8.0">
+
+                            <Button maxWidth="Infinity" onAction="#saveKelasBtn" text="Save" />
+
+                            <Button fx:id="commonStatisticsBtn" disable="true" maxWidth="Infinity" text="Statistics" />
+
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+
+            </AnchorPane>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

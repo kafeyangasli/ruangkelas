@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox minHeight="400.0" minWidth="600.0" spacing="16.0" stylesheets="@../css/cupertino-light.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AssessmentController">
+   <children>
+      <HBox spacing="8.0">
+         <children>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="assessmentTitle" prefWidth="200.0" text="Assessment Pertemuan 1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="assessmentWorth" text="worth XX%">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#editAssessmentBtn" prefHeight="40.0" prefWidth="75.0" text="Edit" />
+            <Button alignment="CENTER" layoutX="488.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteAssessmentBtn" prefHeight="40.0" prefWidth="75.0" text="Delete" />
+         </children>
+      
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="ALWAYS">
+         <children>
+         
+            
+                <!-- ==================== ADD ATTENDEES ==================== -->
+         
+                <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+         
+            
+                    <!-- Search -->
+         
+                    <TextField fx:id="attendeeSearchField" prefWidth="276.0" promptText="Search by NIM or name" />
+         
+            
+                    <!-- Available students -->
+         
+                    <ListView fx:id="attendeeListView" prefHeight="150.0" prefWidth="328.0" VBox.vgrow="ALWAYS" />
+         
+                </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Selected Attendee" />
+                        <Label fx:id="selectedAttendeeLabel" text="-" wrapText="true" />
+                        <VBox spacing="8.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label text="Recorded Time:" wrapText="true" />
+                                    <Label fx:id="recordedTimeLabel" text="-" wrapText="true">
+                                       <font>
+                                          <Font name="System Italic" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="10.0" layoutY="66.0">
+                                 <children>
+                                    <Label text="Last Updated:" wrapText="true" />
+                                    <Label fx:id="updateTimeLabel" text="-" wrapText="true">
+                                       <font>
+                                          <Font name="System Italic" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <Separator />
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Grade" />
+                        <TextField fx:id="gradeField" maxWidth="Infinity" promptText="Enter grade" />
+                        <HBox spacing="8.0">
+                           <children>
+                              <Button fx:id="saveGradeBtn" disable="true" maxWidth="Infinity" onAction="#saveGrade" text="Save" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="resetGradeBtn" disable="true" maxWidth="Infinity" onAction="#resetGrade" text="Reset" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Separator />
+                  <VBox layoutX="10.0" layoutY="10.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Common Statistics" />
+                        <Label fx:id="meanGradesLabel" text="Mean:" wrapText="true" />
+                        <Label fx:id="maxGradeLabel" layoutX="10.0" layoutY="30.0" text="Max:" wrapText="true" />
+                        <Label fx:id="minGradeLabel" layoutX="10.0" layoutY="50.0" text="Min:" wrapText="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</VBox>

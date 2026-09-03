@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefHeight="500.0" prefWidth="600.0" stylesheets="@../css/cupertino-light.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UsageController">
+   <children>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true">
+            <content>
+                <VBox maxWidth="760.0" prefWidth="760.0" spacing="18.0">
+                    <padding>
+                        <Insets bottom="22.0" left="22.0" right="22.0" top="22.0" />
+                    </padding>
+
+                          <Label text="Usage Guide">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Label>
+
+                          <Label maxWidth="1.7976931348623157E308" text="A quick guide to managing classes, students, attendance, assessments, and sessions in ruangkelas." wrapText="true" />
+
+                          <VBox spacing="6.0">
+                        <Label text="1. Create a Kelas">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Open File → Kelas → Create a new Kelas. Enter the class information and create it. Select the Kelas from the left-hand list to manage it." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="2. Manage Students">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Use File → Students → Manage Student Data to maintain your student database. Students can also be imported from CSV, XLSX, or JSON using File → Students → Import." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="3. Add Students to a Kelas">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Select a Kelas, then add students to its attendee list. A student can only be enrolled once in the same Kelas." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="4. View an Attendee">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Select a student from the attendee list and choose View Attendee to inspect their attendance and grades." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="5. Manage Assessments">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Use Manage Assessments to add or edit assessments. Each assessment has a description and a percentage weight. The weights represent how much each assessment contributes to the final grade." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="6. Record Grades">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Select an assessment and an attendee, then enter or update the student's grade. The final grade is calculated from the assessment weights." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="7. Manage Sessions">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Use Manage Sessions to create class sessions. A session can have a date, time, and notes. Sessions are also used when recording attendance." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="8. Record Attendance">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Start or select a session and set each attendee's attendance status. Attendance is associated with the specific session, so each session keeps its own record." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="9. Export Data">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="Use File → Kelas → Export Kelas Data → To JSON to export the Kelas data. Use Export Kelas Report when you need a report-oriented spreadsheet." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="10. Data Persistence">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="ruangkelas automatically saves application data when changes are made and saves all data when the application closes. Keep your data directory backed up if the information is important." wrapText="true" />
+                    </VBox>
+
+                          <VBox spacing="6.0">
+                        <Label text="Tip">
+                            <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                        </Label>
+                        <Label text="If a button is disabled, select the relevant Kelas, attendee, assessment, or session first. Many actions intentionally require a selection before they become available." wrapText="true" />
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets bottom="16.0" left="16.0" right="16.0" top="10.0" />
+            </padding>
+            <children>
+                <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" prefHeight="33.0" prefWidth="77.0" text="Close" />
+            </children>
+        </HBox>
+   </children>
+</VBox>

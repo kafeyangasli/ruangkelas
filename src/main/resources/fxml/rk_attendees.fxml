@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox prefHeight="500.0" prefWidth="600.0" spacing="16.0" stylesheets="@../css/cupertino-light.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AttendeeController">
+
+    <padding>
+        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+    </padding>
+
+    <!-- ==================== CURRENT ATTENDEES ==================== -->
+
+    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+
+        <Label text="Attendees">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+      <TextField fx:id="attendeeSearchField" promptText="Search by NIM or name" />
+
+        <ListView fx:id="attendeeListView" VBox.vgrow="ALWAYS" />
+      <Button fx:id="dropSelectedBtn" maxWidth="Infinity" onAction="#dropSelectedAttendees" text="Drop Selected Student(s)" />
+
+    </VBox>
+
+
+    <!-- ==================== ADD ATTENDEES ==================== -->
+
+    <VBox minWidth="300.0" prefWidth="350.0" spacing="8.0" HBox.hgrow="ALWAYS">
+
+        <Label text="Students">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+
+
+        <!-- Search -->
+
+        <TextField fx:id="studentSearchField" promptText="Search by NIM or name" />
+
+
+        <!-- Available students -->
+
+        <ListView fx:id="studentListView" prefHeight="150.0" prefWidth="328.0" VBox.vgrow="ALWAYS" />
+
+        <Button fx:id="addSelectedBtn" maxWidth="Infinity" onAction="#addSelectedAttendees" text="Enroll Selected Student(s)" VBox.vgrow="NEVER" />
+
+
+        <Separator />
+
+
+        <!-- Bulk NIM -->
+
+        <Label text="Insert NIM separated by newlines">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+
+        <TextArea fx:id="nimTextArea" prefRowCount="6" promptText="240101&#10;240102&#10;240103" wrapText="true" VBox.vgrow="NEVER" />
+
+        <Button fx:id="addNimBtn" maxWidth="Infinity" onAction="#addNimAttendees" text="Enroll Listed Student(s)" />
+
+    </VBox>
+
+</HBox>

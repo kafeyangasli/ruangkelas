@@ -1,0 +1,10 @@
+#maven
+target/
+
+#ide
+.idea/
+.vscode/
+
+#shits
+unused/
+archives/

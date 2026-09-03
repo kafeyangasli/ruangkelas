@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox spacing="8.0" stylesheets="@../css/cupertino-light.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AboutController">
+   <children>
+          <VBox maxWidth="560.0" prefWidth="560.0" spacing="18.0">
+              <padding>
+                  <Insets bottom="26.0" left="26.0" right="26.0" top="26.0" />
+              </padding>
+               <ImageView fitHeight="51.0" fitWidth="359.0" preserveRatio="true">
+                   <image>
+                       <Image url="@../imgs/ruangkelas.png" />
+                   </image>
+               </ImageView>
+
+                    <Separator />
+
+                    <Label maxWidth="1.7976931348623157E308" text="ruangkelas is a desktop application for managing classroom data in one place. This application provides tools for managing courses, classes, students, attendance, sessions, assessments, and grades." textAlignment="JUSTIFY" wrapText="true" />
+
+                    <Label text="Contributors">
+                  <font>
+                      <Font name="System Bold" size="16.0" />
+                  </font>
+              </Label>
+
+                    <Label maxWidth="1.7976931348623157E308" text="• Maulana Ghazzam Adil Al Faiq" wrapText="true" />
+
+                    <Label text="Technology">
+                  <font>
+                      <Font name="System Bold" size="16.0" />
+                  </font>
+              </Label>
+
+                    <Label text="This application was built with Java 26 and JavaFX 26." />
+
+                    <Label opacity="0.65" text="Version 1.0" />
+          </VBox>
+        <HBox alignment="CENTER_RIGHT">
+            <children>
+                <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" prefHeight="33.0" prefWidth="77.0" text="Close" HBox.hgrow="ALWAYS" />
+            </children>
+        </HBox>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</VBox>
