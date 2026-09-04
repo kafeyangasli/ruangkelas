@@ -8,6 +8,7 @@ import events.DataUpdateListener;
 
 import exceptions.PersistenceException;
 
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -126,6 +127,11 @@ public class SessionController extends Controller{
                 selectedAttendee = newAttd;
                 if (newAttd != null) {
                     setAttendee();
+                    Platform.runLater(() -> {
+                        if (selectedAttendance != null) return;
+                        attendanceComboBox.requestFocus();
+                        attendanceComboBox.show();
+                    });
                 } else {
                     resetAttendance();
                     attendanceComboBox.setValue(null);
@@ -195,21 +201,30 @@ public class SessionController extends Controller{
             protected void updateItem(AttendanceRecord record, boolean empty) {
                 super.updateItem(record, empty);
 
+                getStyleClass().removeAll(
+                        "attendance-present", "attendance-sick", "attendance-leave"
+                );
+
                 if (empty || record == null) {
                     setText(null);
-                    updateAttendanceCellStyle(this, record);
                     return;
                 }
 
                 setText(record.toString());
-                updateAttendanceCellStyle(this, record);
+                getStyleClass().add(
+                    switch (record) {
+                        case PRESENT -> "attendance-present";
+                        case SICK -> "attendance-sick";
+                        case LEAVE -> "attendance-leave";
+                    }
+                );
             }
         });
 
         sessionNoteArea
             .focusedProperty()
             .addListener((obs, wasFocused, isFocused) -> {
-                if (!wasFocused || isFocused || selectedSession == null) {
+                if (!wasFocused || isFocused || selectedSession == null || sessionNoteArea.getText() == null) {
                     return;
                 }
 
@@ -485,22 +500,6 @@ public class SessionController extends Controller{
 
         cell.getStyleClass().add(
                 switch (attendance.getStatus()) {
-                    case PRESENT -> "attendance-present";
-                    case SICK -> "attendance-sick";
-                    case LEAVE -> "attendance-leave";
-                }
-        );
-    }
-
-    private void updateAttendanceCellStyle(ListCell<AttendanceRecord> cell, AttendanceRecord record) {
-        cell.getStyleClass().removeAll(
-                "attendance-present", "attendance-sick", "attendance-leave"
-        );
-
-        if (record == null) return;
-
-        cell.getStyleClass().add(
-                switch (record) {
                     case PRESENT -> "attendance-present";
                     case SICK -> "attendance-sick";
                     case LEAVE -> "attendance-leave";

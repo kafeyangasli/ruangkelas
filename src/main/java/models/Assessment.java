@@ -1,20 +1,24 @@
 package models;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Assessment {
     private final UUID uuid;
+    private final LocalDateTime createdAt;
     private String name;
     private int percentage;
 
     public Assessment(int percentage, String name) {
         this.uuid = UUID.randomUUID();
+        this.createdAt = LocalDateTime.now();
         this.name = name;
         this.percentage = percentage;
     }
 
-    public Assessment(UUID uuid, int percentage, String name) {
+    public Assessment(UUID uuid, LocalDateTime createdAt, int percentage, String name) {
         this.uuid = uuid;
+        this.createdAt = createdAt;
         this.name = name;
         this.percentage = percentage;
     }
@@ -22,6 +26,8 @@ public class Assessment {
     public UUID getUUID() {
         return this.uuid;
     }
+
+    public LocalDateTime getCreatedAt() { return this.createdAt; }
 
     public String getName() {
         return this.name;

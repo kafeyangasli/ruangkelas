@@ -4,6 +4,7 @@ import events.DataUpdateListener;
 
 import exceptions.PersistenceException;
 
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -119,6 +120,10 @@ public class AssessmentController extends Controller {
                 selectedAttendee = newAttd;
                 if (newAttd != null) {
                     setAttendee();
+                    Platform.runLater(() -> {
+                        if (selectedGrade != null) return;
+                        gradeField.requestFocus();
+                    });
                 } else {
                     enableEditButtons(false);
                     selectedAttendeeLabel.setText("-");

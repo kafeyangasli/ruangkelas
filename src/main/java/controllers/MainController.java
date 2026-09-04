@@ -648,7 +648,7 @@ public class MainController extends Controller {
 
         Stage stage = Ruangkelas.createStage(
                 scene,
-                "Attendee %s".formatted(selectedAttendee.toString()),
+                "Attendee %s".formatted(selectedAttendee.getStudent().getNIM()),
                 600,
                 400
         );
@@ -1005,6 +1005,7 @@ public class MainController extends Controller {
         if (selectedKelas == null) return;
         
         refreshList(assessmentList, selectedKelas.getAssessments());
+        assessmentListView.getItems().sort(Comparator.comparing(Assessment::getCreatedAt));
     }
     
     private void refreshSessionList() {

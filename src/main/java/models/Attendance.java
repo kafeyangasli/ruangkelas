@@ -1,12 +1,27 @@
 package models;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 public class Attendance {
     private final LocalDateTime recordedAt;
     private LocalDateTime updatedAt;
     private final Session session;
     private AttendanceRecord status;
+
+    private final static Set<Attendance> emptyAttendances = new HashSet<>();
+    public static Attendance getEmptyAttendance(Session session) {
+        Optional<Attendance> emptyAttendance =
+                emptyAttendances.stream().filter(attendance -> attendance.ofSession(session)).findFirst();
+        if (emptyAttendance.isEmpty()) {
+            emptyAttendance = Optional.of(new Attendance(null, null, session, null));
+        }
+
+        emptyAttendances.add(emptyAttendance.get());
+        return emptyAttendance.get();
+    }
 
     public Attendance(Session session, AttendanceRecord status) {
         this.recordedAt = LocalDateTime.now();

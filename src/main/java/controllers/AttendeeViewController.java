@@ -15,12 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import models.Attendance;
-import models.Assessment;
-import models.Attendee;
-import models.Grade;
-import models.Kelas;
-import models.Session;
+import models.*;
 
 import service.KelasService;
 import service.Services;
@@ -91,32 +86,29 @@ public class AttendeeViewController extends Controller {
 
     @FXML
     private void initialize() {
-
         assessmentListView.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(
                     Grade grade,
                     boolean empty
             ) {
-                super.updateItem(grade, empty);
+            super.updateItem(grade, empty);
 
-                if (empty || grade == null) {
-                    setText(null);
-                    return;
-                }
+            if (empty || grade == null) {
+                setText(null);
+                return;
+            }
 
-                Assessment assessment = grade.getAssessment();
+            Assessment assessment = grade.getAssessment();
 
-                setText("%s  ⟶  %.2f".formatted(assessment.getName(), grade.getGrade()));
+            setText("%s  ⟶  %.2f"
+                    .formatted(assessment.toString(), grade.getGrade()));
             }
         });
 
         attendanceListView.setCellFactory(listView -> new ListCell<>() {
             @Override
-            protected void updateItem(
-                    Attendance attendance,
-                    boolean empty
-            ) {
+            protected void updateItem(Attendance attendance, boolean empty) {
                 super.updateItem(attendance, empty);
 
                 if (empty || attendance == null) {
@@ -125,8 +117,24 @@ public class AttendeeViewController extends Controller {
                 }
 
                 Session session = attendance.getSession();
+                AttendanceRecord record = attendance.getStatus();
 
-                setText("Session %d: %s  ⟶  %s".formatted(getIndex() + 1, session.getTopic(), attendanceStatus(attendance)));
+                setText("Session %d: %s  ⟶  %s"
+                        .formatted(getIndex() + 1, session.getTopic(), record == null ? "N/A" : record.toString()));
+
+                getStyleClass().removeAll(
+                        "attendance-present", "attendance-sick", "attendance-leave"
+                );
+
+                if (record == null) return;
+
+                getStyleClass().add(
+                    switch (record) {
+                        case PRESENT -> "attendance-present";
+                        case SICK -> "attendance-sick";
+                        case LEAVE -> "attendance-leave";
+                    }
+                );
             }
         });
     }
@@ -146,7 +154,7 @@ public class AttendeeViewController extends Controller {
     private void refreshStudentInfo() {
         namaLabel.setText(selectedAttendee.getStudent().getNama());
 
-        nimLabel.setText(selectedAttendee.getStudent().getNIM());
+        nimLabel.setText("NIM: " + selectedAttendee.getStudent().getNIM());
     }
 
     private void refreshAssessments() {
@@ -156,18 +164,15 @@ public class AttendeeViewController extends Controller {
             return;
         }
 
-        List<Grade> grades = new ArrayList<>();
+        List<Grade> grades = new ArrayList<>(selectedKelas.getAttendeeGrades(selectedAttendee).stream().toList());
 
         for (Assessment assessment : selectedKelas.getAssessments()) {
-            for (Grade grade : selectedKelas.getGrades(assessment)) {
-                if (grade.getAttendee() == selectedAttendee) {
-                    grades.add(grade);
-                }
-            }
+            if (grades.stream().noneMatch(grade -> grade.ofAssessment(assessment)))
+                grades.add(Grade.getEmptyGrade(assessment));
         }
 
         grades.sort(
-            Comparator.comparing(grade -> grade.getAssessment().getName())
+            Comparator.comparing(grade -> grade.getAssessment().getCreatedAt())
         );
 
         assessmentListView
@@ -178,8 +183,13 @@ public class AttendeeViewController extends Controller {
 
         List<Attendance> attendances = new ArrayList<>(selectedAttendee.getAttendances());
 
+        for (Session session : selectedKelas.getSessions()) {
+            if (attendances.stream().noneMatch(att -> att.getSession() == session))
+                attendances.add(Attendance.getEmptyAttendance(session));
+        }
+
         attendances.sort(
-            Comparator.comparing(Attendance::getRecordedAt)
+            Comparator.comparing(a -> a.getSession().getCreatedAt())
         );
 
         attendanceListView.setItems(
@@ -222,15 +232,6 @@ public class AttendeeViewController extends Controller {
         };
 
         gradeBox.getStyleClass().add(style);
-    }
-
-    private String attendanceStatus(Attendance attendance) {
-
-        return switch (attendance.getStatus()) {
-            case PRESENT -> "Present";
-            case SICK -> "Sick Leave";
-            case LEAVE -> "Formal Leave";
-        };
     }
 
     @FXML

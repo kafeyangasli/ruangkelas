@@ -1,6 +1,9 @@
 package models;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 public class Grade {
     private final LocalDateTime recordedAt;
@@ -9,8 +12,16 @@ public class Grade {
     private final Attendee attendee;
     private double number;
 
-    private final static Grade emptyGrade = new Grade(null, null, 0);
-    public static Grade getEmptyGrade() { return emptyGrade; }
+    private final static Set<Grade> emptyGrades = new HashSet<>();
+    public static Grade getEmptyGrade(Assessment assessment) {
+        Optional<Grade> emptyGrade = emptyGrades.stream().filter(grade -> grade.ofAssessment(assessment)).findFirst();
+        if (emptyGrade.isEmpty()) {
+            emptyGrade = Optional.of(new Grade(assessment, null, 0.0));
+        }
+
+        emptyGrades.add(emptyGrade.get());
+        return emptyGrade.get();
+    }
 
     public Grade(Assessment assessment, Attendee attendee, double number) {
         this.recordedAt = LocalDateTime.now();
