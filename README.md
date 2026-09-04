@@ -6,7 +6,7 @@
 
 **ruangkelas** is a desktop application for managing classroom data in one place. It provides tools for managing courses, classes, students, attendance, sessions, assessments, and grades.
 
-This application was originally built to assist myself as a Practicum Assistant, where I needed an elegant way to track attendee attendance and grades across multiple lab sessions without relying on scattered spreadsheets. It's built as a native desktop app rather than a web app, so it works fully offline and stores your data locally.
+This application was originally built to assist myself as a Practicum Assistant, where I needed an elegant way to track attendee attendance and grades across multiple lab sessions without relying on scattered spreadsheets. It's built as a native desktop app rather than a web app, so it works fully offline and stores data locally in JSON format to provide easy and quick access should a modification is required that is not accessible through interactables in the application.
 
 Feel free to adjust this application to your own needs, in accordance with the MIT License under which it's shared.
 
@@ -48,34 +48,38 @@ mvn clean package
 
 ## Usage Guide
 
-### 1. Create a Kelas
-Open **File → Kelas → Create a new Kelas**. Enter the class information and create it. Select the Kelas from the left-hand list to manage it.
-
-### 2. Manage Students
+### 1. Manage Students
 Use **File → Students → Manage Student Data** to maintain your student database. Students can also be imported from CSV, XLSX, or JSON using **File → Students → Import**.
 
-### 3. Add Students to a Kelas
+### 2. Create Course
+Use **File → Courses → Manage Courses** to maintain your course database. Courses can be a part of multiple Kelas in the same cohort year with different IDs, or different cohort year with same IDs.
+
+### 3. Create a Kelas
+Open **File → Kelas → Create a new Kelas**. Select the course of which the Kelas is associated with and create it. Select the newly created Kelas from the left-hand list to manage it.
+
+### 4. Add Students to a Kelas
 Select a Kelas, then add students to its attendee list. A student can only be enrolled once in the same Kelas.
 
-### 4. View an Attendee
+### 5. View an Attendee
 Select a student from the attendee list and choose **View Attendee** to inspect their attendance and grades.
 
-### 5. Manage Assessments
-Use **Manage Assessments** to add or edit assessments. Each assessment has a description and a percentage weight. The weights represent how much each assessment contributes to the final grade.
+### 6. Manage Assessments
+Use **Manage Assessments** to add or edit assessments. Each assessment has a description and a percentage weight. The weights represent how much each assessment contributes to the final grade. 
+> **NOTE**: Assessment weights may overflow. Future updates will address this issue.
 
-### 6. Record Grades
+### 7. Record Grades
 Select an assessment and an attendee, then enter or update the student's grade. The final grade is calculated from the assessment weights.
 
-### 7. Manage Sessions
+### 8. Manage Sessions
 Use **Manage Sessions** to create class sessions. A session can have a date, time, and notes. Sessions are also used when recording attendance.
 
-### 8. Record Attendance
+### 9. Record Attendance
 Start or select a session and set each attendee's attendance status. Attendance is associated with the specific session, so each session keeps its own record.
 
-### 9. Export Data
+### 10. Export Data
 Use **File → Kelas → Export Kelas Data → To JSON** to export the Kelas data. Use **Export Kelas Report** when you need a report-oriented spreadsheet.
 
-### 10. Data Persistence
+### 11. Data Persistence
 ruangkelas automatically saves application data when changes are made and saves all data when the application closes. Keep your data directory backed up if the information is important.
 
 > **Tip:** If a button is disabled, select the relevant Kelas, attendee, assessment, or session first. Many actions intentionally require a selection before they become available.
